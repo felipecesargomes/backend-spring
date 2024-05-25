@@ -17,6 +17,10 @@ public class Cnpj extends Base {
 	@NotEmpty
 	@Column(name = "cidade", nullable = false, length = 255)
 	private String cidade;
+	
+	@NotEmpty
+	@Column(name = "estado", nullable = false, length = 255)
+	private String estado;
 
 	@NotEmpty
 	@Column(name = "cnpj", nullable = false, length = 14)
@@ -55,4 +59,13 @@ public class Cnpj extends Base {
 		return this.getCnpj() + " - " + this.getNome();
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	
 }

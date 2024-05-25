@@ -1,0 +1,7 @@
+-- CREATE TABLE t_cnpj (
+--   id INT NOT NULL AUTO_INCREMENT,
+--   cidade varchar(255) NOT NULL,
+--   nome varchar(255) NOT NULL,
+--   cnpj varchar(14) NOT NULL,
+--   PRIMARY KEY (id)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
