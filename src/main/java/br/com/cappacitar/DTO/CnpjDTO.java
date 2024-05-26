@@ -9,6 +9,7 @@ public class CnpjDTO extends BaseDTO {
 	private String nome;
 	private String cidade;
 	private String cnpj;
+	private String estado;
 
 	public String getNome() {
 		return nome;
@@ -37,6 +38,14 @@ public class CnpjDTO extends BaseDTO {
 	@Hidden
 	public String getLabel() {
 		return this.getCnpj() + " - " + this.getNome();
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 

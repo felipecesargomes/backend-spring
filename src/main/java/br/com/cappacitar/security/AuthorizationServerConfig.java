@@ -48,7 +48,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		clients
 			.inMemory()
 			.withClient("my-cappacitar-app")
-			.secret("@system@Cappacitar7")
+			.secret("{noop}@system@Cappacitar7")
 			.scopes("read", "write")
 			.authorizedGrantTypes("password")
 			.accessTokenValiditySeconds(172800);

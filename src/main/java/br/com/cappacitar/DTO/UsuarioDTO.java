@@ -1,11 +1,10 @@
 package br.com.cappacitar.DTO;
 
-import javax.persistence.Column;
-
 public class UsuarioDTO extends BaseDTO {
 
 	private String username;
 	private String password;
+
 
 	public String getUsername() {
 		return username;

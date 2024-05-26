@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
 
+import antlr.Utils;
+import ch.qos.logback.classic.pattern.Util;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -51,7 +53,7 @@ public class Cnpj extends Base {
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = br.com.cappacitar.util.Utils.removerPontos(cnpj);
 	}
 
 	@Hidden
