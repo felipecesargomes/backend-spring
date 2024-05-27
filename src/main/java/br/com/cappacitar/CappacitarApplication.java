@@ -15,27 +15,7 @@ public class CappacitarApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-//		System.setProperty("spring.devtools.restart.enabled", "false");
 		SpringApplication.run(CappacitarApplication.class, args);
-		// Cria uma instância do BCryptPasswordEncoder
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        
-        // Define a senha a ser criptografada
-        String rawPassword = "123";
-        
-        // Criptografa a senha
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-        
-        // Imprime a senha criptografada
-        System.out.println("Senha criptografada: " + encodedPassword);
 	}
-	
-//	/* MAPEAMENTO GLOBAL DO CORS QUE REFLETE em todo SISTEMA*/
-//	@Override
-//	public void addCorsMappings(CorsRegistry registry) {
-//		registry.addMapping("/**")
-//		.allowedMethods("*")
-//		.allowedOrigins("*");
-//	}
 
 }

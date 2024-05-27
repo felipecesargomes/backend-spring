@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.cappacitar.service.UsuarioService;
@@ -18,13 +17,20 @@ import br.com.cappacitar.service.UsuarioService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private final UsuarioService usuarioService;
+	private final PasswordEncoder passwordEncoder;
+
 	@Autowired
-	private UsuarioService usuarioService;
+	public WebSecurityConfig(UsuarioService usuarioService, PasswordEncoder passwordEncoder) {
+		this.usuarioService = usuarioService;
+		this.passwordEncoder = passwordEncoder;
+//		System.out.println("security: " + passwordEncoder);
+	}
 
 	// Usuario que faz acesso na tela da aplicação frontend
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(usuarioService).passwordEncoder(passwordEncoder);
 	}
 
 	@Bean
@@ -35,30 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http
-		.csrf()
-		.disable()
-		.cors()
-		.and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
-	
-	  @Bean
-	    public PasswordEncoder passwordEncoder() {
-//	        String idForEncode = "bcrypt";
-//	        Map<String, PasswordEncoder> encoders = new HashMap<>();
-//	        encoders.put(idForEncode, new BCryptPasswordEncoder());
-//
-//	        return new DelegatingPasswordEncoder(idForEncode, encoders);
-		  return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	    }
 
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-	
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //		return NoOpPasswordEncoder.getInstance();

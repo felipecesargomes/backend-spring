@@ -17,41 +17,34 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Value("${security.jwt.signing-key}")
 	private String signingKey;
-	
+
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-	
+
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
 		tokenConverter.setSigningKey(signingKey);
 		return tokenConverter;
 	}
-	
+
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.
-			tokenStore(tokenStore())
-			.accessTokenConverter(accessTokenConverter())
-			.authenticationManager(authenticationManager);
+		endpoints.tokenStore(tokenStore()).accessTokenConverter(accessTokenConverter())
+				.authenticationManager(authenticationManager);
 	}
-	
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients
-			.inMemory()
-			.withClient("my-cappacitar-app")
-			.secret("{noop}@system@Cappacitar7")
-			.scopes("read", "write")
-			.authorizedGrantTypes("password")
-			.accessTokenValiditySeconds(172800);
+		clients.inMemory().withClient("my-cappacitar-app").secret("{noop}@system@Cappacitar7").scopes("read", "write")
+				.authorizedGrantTypes("password").accessTokenValiditySeconds(172800);
 	}
-	
+
 }
