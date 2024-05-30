@@ -4,10 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
 
-import antlr.Utils;
-import ch.qos.logback.classic.pattern.Util;
 import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity(name = "t_cnpj")
 public class Cnpj extends Base {
@@ -16,12 +13,10 @@ public class Cnpj extends Base {
 	@Column(name = "nome", nullable = false, length = 255)
 	private String nome;
 
-	@NotEmpty
-	@Column(name = "cidade", nullable = false, length = 255)
+	@Column(name = "cidade", length = 255)
 	private String cidade;
-	
-	@NotEmpty
-	@Column(name = "estado", nullable = false, length = 255)
+
+	@Column(name = "estado", length = 255)
 	private String estado;
 
 	@NotEmpty
@@ -69,5 +64,4 @@ public class Cnpj extends Base {
 		this.estado = estado;
 	}
 
-	
 }

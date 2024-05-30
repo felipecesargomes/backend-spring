@@ -1,14 +1,17 @@
 package br.com.cappacitar.DTO;
 
-public class BaseDTO {
+import java.io.Serializable;
 
-	private int id;
+public class BaseDTO implements Serializable {
 
-	public int getId() {
+	private static final long serialVersionUID = 1L;
+	private Long id;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

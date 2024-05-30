@@ -7,14 +7,13 @@ import javax.validation.constraints.NotEmpty;
 
 import br.com.cappacitar.entity.PlanoConta;
 import br.com.cappacitar.entity.TipoTransacao;
+import io.swagger.v3.oas.annotations.Hidden;
 
 public class TipoLancamentoDTO extends BaseDTO {
 
 	private String descricao;
 	private PlanoConta planoConta;
-	@NotEmpty
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipotransacao", length = 50)
+	private char sistema;
 	private TipoTransacao tipoTransacao;
 
 	public String getDescricao() {
@@ -40,17 +39,26 @@ public class TipoLancamentoDTO extends BaseDTO {
 	public void setTipoTransacao(TipoTransacao tipoTransacao) {
 		this.tipoTransacao = tipoTransacao;
 	}
-	
+
 	// Getter para obter a descrição concatenada com "+" ou "-"
 
-
-//	@Hidden
+		@Hidden
 	public String getTipo() {
 		if (this.tipoTransacao == TipoTransacao.RECEITA) {
 			return "[+] " + this.descricao;
-        } else {
-        	return "[-] " + this.descricao;
-        }
+		} else {
+			return "[-] " + this.descricao;
+		}
 	}
+
+	public char getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(char sistema) {
+		this.sistema = sistema;
+	}
+
+
 
 }

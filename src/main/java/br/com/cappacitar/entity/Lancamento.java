@@ -7,13 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-
 @Entity(name = "t_lancamento")
 public class Lancamento extends Base {
-
+	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "idtipolancamento", nullable = false)
@@ -39,6 +39,9 @@ public class Lancamento extends Base {
 	@ManyToOne
 	@JoinColumn(name = "idcnpj", nullable = false)
 	private Cnpj cnpj;
+
+	@Column(name = "datacadastro", nullable = true)
+	private LocalDate dataCadastro;
 
 	public TipoLancamento getTipoLancamento() {
 		return tipoLancamento;
@@ -83,13 +86,22 @@ public class Lancamento extends Base {
 			throw new Exception();
 		}
 	}
-	
+
 	public Cnpj getCnpj() {
 		return cnpj;
 	}
 
 	public void setCnpj(Cnpj cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		this.dataCadastro = LocalDate.now();
 	}
 
 }

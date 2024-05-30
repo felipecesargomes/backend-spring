@@ -61,7 +61,7 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 	}
 
 	@Transactional(readOnly = true)
-	public DTO findById(int id) throws Exception {
+	public DTO findById(Long id) throws Exception {
 
 		Optional<ENTITY> entityOptional = repository.findById(id);
 
@@ -69,7 +69,7 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 
 			ENTITY entity = entityOptional.get();
 			ModelMapper modelMapper = new ModelMapper();
-			modelMapper.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
+			//modelMapper.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
 			return (DTO) modelMapper.map(entity, dtoClass);
 
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 		}
 
 	}
-
+	
 	@Transactional
 	public DTO save(DTO dto) throws Exception {
 
@@ -102,8 +102,10 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 
 	}
 
+
+
 	@Transactional
-	public DTO update(int id, DTO dto) throws Exception {
+	public DTO update(Long id, DTO dto) throws Exception {
 
 		Optional<ENTITY> entityOptional = repository.findById(id);
 		ModelMapper modelMapper = new ModelMapper();
@@ -143,7 +145,7 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 	}
 
 	@Transactional
-	public boolean delete(int id) throws Exception {
+	public boolean delete(Long id) throws Exception {
 
 		try {
 
@@ -167,5 +169,41 @@ public abstract class BaseService<ENTITY extends Base, DTO extends BaseDTO> impl
 		}
 
 	}
+
+	
+//	@Transactional
+//	public DTO save(DTO dto) throws Exception {
+//
+//		ENTITY entity;
+//		ModelMapper modelMapper = new ModelMapper();
+//		// modelMapper.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
+//
+//		try {
+//
+//			entity = (ENTITY) modelMapper.map(dto, entityClass);
+//			if (entity.getId() > 0) {
+//				Optional<ENTITY> existingEntity = repository.findById(entity.getId());
+//				if (existingEntity.isPresent()) {
+//					ENTITY updatedEntity = existingEntity.get();
+//					modelMapper.map(dto, updatedEntity); // Atualiza os campos necessários
+//					entity = (ENTITY) repository.save(updatedEntity);
+//				} else {
+//					throw new Exception("ID não encontrado para atualização");
+//				}
+//			} else {
+//				// Criação de nova entidade
+//				entity.setId(0); // Assegura que ID seja 0 para a criação
+//				entity = (ENTITY) repository.save(entity);
+//			}
+//
+//			return (DTO) modelMapper.map(entity, dtoClass);
+//
+//		} catch (Exception e) {
+//
+//			throw e; // Relança a exceção original
+//
+//		}
+//
+//	}
 
 }

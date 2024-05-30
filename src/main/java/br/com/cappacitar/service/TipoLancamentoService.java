@@ -1,8 +1,6 @@
 package br.com.cappacitar.service;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
 import br.com.cappacitar.DTO.TipoLancamentoDTO;
 import br.com.cappacitar.entity.TipoLancamento;
 import br.com.cappacitar.repository.TipoLancamentoRepository;

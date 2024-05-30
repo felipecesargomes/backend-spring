@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "t_tipo_lancamento")
 public class TipoLancamento extends Base {
@@ -20,10 +20,13 @@ public class TipoLancamento extends Base {
 	@JoinColumn(name = "idplanoconta", nullable = false)
 	private PlanoConta planoConta;
 
-	@NotEmpty
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipotransacao", length = 50)
 	private TipoTransacao tipoTransacao;
+
+	@Column(name = "sistema")
+	private char sistema;
 
 	public String getDescricao() {
 		return descricao;
@@ -48,14 +51,22 @@ public class TipoLancamento extends Base {
 	public void setTipoTransacao(TipoTransacao tipoTransacao) {
 		this.tipoTransacao = tipoTransacao;
 	}
-	
+
 //	@Hidden
 	public String getTipo() {
 		if (this.tipoTransacao == TipoTransacao.RECEITA) {
 			return "[+] " + this.descricao;
-        } else {
-        	return "[-] " + this.descricao;
-        }
+		} else {
+			return "[-] " + this.descricao;
+		}
+	}
+
+	public char getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(char sistema) {
+		this.sistema = 'N';
 	}
 
 }

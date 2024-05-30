@@ -1,15 +1,11 @@
 package br.com.cappacitar.repository;
 
-import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import br.com.cappacitar.entity.Lancamento;
-import br.com.cappacitar.entity.TipoLancamento;
 
 @Repository
 public interface LancamentoRepository extends JpaRepository<Lancamento, Integer> {
@@ -39,7 +35,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Integer>
 	            nativeQuery = true)
 	    List<Lancamento> listaFiltroLancamentoNative(
 	            @Param("descricao") String descricao,
-	            @Param("tipoLancamento") Integer tipoLancamento,
+	            @Param("tipoLancamento") Long tipoLancamento,
 	            @Param("dataLancamentoInicio") String dataLancamentoInicio,
 	            @Param("dataLancamentoFinal") String dataLancamentoFinal);
 }

@@ -79,7 +79,7 @@ public abstract class BaseController<DTO> {
 			@ApiResponse(responseCode = "405", description = "Método de requisição não permitido"),
 			@ApiResponse(responseCode = "500", description = "Erro interno do servidor") })
 	@Transactional
-	public ResponseEntity getOne(@PathVariable int id) {
+	public ResponseEntity getOne(@PathVariable Long id) {
 
 		try {
 
@@ -114,6 +114,7 @@ public abstract class BaseController<DTO> {
 
 		} catch (Exception e) {
 
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body("{\"message\": \"Erro ao tentar inserir os dados.\"}");
 
@@ -132,7 +133,7 @@ public abstract class BaseController<DTO> {
 			@ApiResponse(responseCode = "405", description = "Método de requisição não permitido"),
 			@ApiResponse(responseCode = "500", description = "Erro interno do servidor") })
 	@Transactional
-	public ResponseEntity put(@PathVariable int id, @RequestBody DTO dto) {
+	public ResponseEntity put(@PathVariable Long id, @RequestBody DTO dto) {
 
 		try {
 
@@ -159,7 +160,7 @@ public abstract class BaseController<DTO> {
 			@ApiResponse(responseCode = "405", description = "Método de requisição não permitido"),
 			@ApiResponse(responseCode = "500", description = "Erro interno do servidor") })
 	@Transactional
-	public ResponseEntity delete(@PathVariable int id) {
+	public ResponseEntity delete(@PathVariable Long id) {
 		try {
 
 			service.delete(id);
@@ -173,5 +174,34 @@ public abstract class BaseController<DTO> {
 		}
 
 	}
+	
+	
+//	@PostMapping("/")
+//	// @Hidden Ocultar algum método especifico
+//	@Operation(summary = "Cria", description = "Método para criar", method = "POST")
+//	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Requisição bem-sucedida"),
+//			@ApiResponse(responseCode = "400", description = "Requisição inválida ou dados fornecidos são inválidos"),
+//			@ApiResponse(responseCode = "401", description = "Autenticação necessária e não fornecida ou falhou"),
+//			@ApiResponse(responseCode = "403", description = "Acesso negado ao recurso solicitado"),
+//			@ApiResponse(responseCode = "404", description = "Referência a recurso não encontrado"),
+//			@ApiResponse(responseCode = "405", description = "Método de requisição não permitido"),
+//			@ApiResponse(responseCode = "500", description = "Erro interno do servidor") })
+////	@Transactional
+//	public ResponseEntity post(@RequestBody DTO dto) {
+//
+//		try {
+//
+//			DTO result = (DTO) service.save(dto);
+//			return ResponseEntity.status(HttpStatus.CREATED).body(result);
+//
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//					.body("{\"message\": \"Erro ao tentar inserir os dados.\"}");
+//
+//		}
+//
+//	}
 
 }

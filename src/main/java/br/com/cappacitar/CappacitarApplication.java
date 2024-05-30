@@ -16,6 +16,15 @@ public class CappacitarApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CappacitarApplication.class, args);
+		
+		 // Criptografar a senha
+        String senha = "plhuser1";
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String senhaCriptografada = encoder.encode(senha);
+
+        // Imprimir a senha criptografada no console
+        System.out.println("Senha criptografada: " + senhaCriptografada);
+		
 	}
 
 }
