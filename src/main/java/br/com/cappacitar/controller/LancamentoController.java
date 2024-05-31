@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cappacitar.DTO.LancamentoDTO;
 import br.com.cappacitar.entity.Lancamento;
 import br.com.cappacitar.entity.TipoLancamento;
+import br.com.cappacitar.entity.TipoTransacao;
 import br.com.cappacitar.service.LancamentoService;
 
 @RestController
@@ -30,12 +31,13 @@ public class LancamentoController extends BaseController<LancamentoDTO> {
 	@GetMapping("/filtro")
 	public ResponseEntity<List<Lancamento>> getFiltro(
 	        @RequestParam(value = "descricao", required = false, defaultValue = "") String descricao,
-	        @RequestParam(value = "tipoLancamento", required = false) TipoLancamento tipoLancamento,
+	        @RequestParam(value = "tipoLancamento", required = false) Long tipoLancamento,
 	        @RequestParam(value = "dataLancamentoInicio", required = false) String dataLancamentoInicio,
-            @RequestParam(value = "dataLancamentoFinal", required = false) String dataLancamentoFinal
+            @RequestParam(value = "dataLancamentoFinal", required = false) String dataLancamentoFinal,
+            @RequestParam(value = "tipoTransacao", required = false) String tipoTransacao
 	) {
 	    try {
-	        List<Lancamento> lancamentos = lancamentoService.listaFiltroLancamento(descricao.toUpperCase(), tipoLancamento, dataLancamentoInicio, dataLancamentoFinal);
+	        List<Lancamento> lancamentos = lancamentoService.listaFiltroLancamentoNative(descricao.toUpperCase(), tipoLancamento, dataLancamentoInicio, dataLancamentoFinal, tipoTransacao);
 	        return ResponseEntity.status(HttpStatus.OK).body(lancamentos);
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.emptyList());

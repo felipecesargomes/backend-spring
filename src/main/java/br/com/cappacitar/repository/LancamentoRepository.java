@@ -27,15 +27,33 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Integer>
 //	        @Param("dataPagamentoInicio") LocalDate dataPagamentoInicio,
 //	        @Param("dataPagamentoFinal") LocalDate dataPagamentoFinal);
 
-	  @Query(value = "SELECT * FROM t_lancamento l " +
-	            "WHERE (UPPER(l.descricaolancamento) LIKE CONCAT('%', :descricao, '%') OR :descricao IS NULL) " +
+	  @Query(value = "SELECT * FROM t_lancamento l, t_tipo_lancamento tl " +
+	            "WHERE tl.id = l.idtipolancamento " +
+	            "AND (UPPER(l.descricaolancamento) LIKE CONCAT('%', :descricao, '%') OR :descricao IS NULL) " +
 	            "AND (l.datalancamento >= CAST(:dataLancamentoInicio AS DATE) OR :dataLancamentoInicio IS NULL) " +
 	            "AND (l.datalancamento <= CAST(:dataLancamentoFinal AS DATE) OR :dataLancamentoFinal IS NULL) " +
-	            "AND (:tipoLancamento IS NULL OR l.idtipolancamento = :tipoLancamento)",
+	            "AND (:tipoLancamento IS NULL OR l.idtipolancamento = :tipoLancamento) " +
+	            "AND (:tipoTransacao IS NULL OR tl.tipoTransacao = :tipoTransacao)",
 	            nativeQuery = true)
 	    List<Lancamento> listaFiltroLancamentoNative(
 	            @Param("descricao") String descricao,
 	            @Param("tipoLancamento") Long tipoLancamento,
 	            @Param("dataLancamentoInicio") String dataLancamentoInicio,
-	            @Param("dataLancamentoFinal") String dataLancamentoFinal);
+	            @Param("dataLancamentoFinal") String dataLancamentoFinal,
+	            @Param("tipoTransacao") String tipoTransacao);
+	  
+//	  @Query(value = "SELECT * FROM t_lancamento l, t_tipo_lancamento tl " +
+//      "WHERE tl.id = l.idtipolancamento " +
+//      "AND (UPPER(l.descricaolancamento) LIKE CONCAT('%', :descricao, '%') OR :descricao IS NULL) " +
+//      "AND (l.datalancamento >= CAST(:dataLancamentoInicio AS DATE) OR :dataLancamentoInicio IS NULL) " +
+//      "AND (l.datalancamento <= CAST(:dataLancamentoFinal AS DATE) OR :dataLancamentoFinal IS NULL) " +
+//      "AND (:tipoLancamento IS NULL OR l.idtipolancamento = :tipoLancamento) " +
+//      "AND (:tipoTransacao IS NULL OR tl.tipoTransacao = :tipoTransacao) ",
+//      nativeQuery = true)
+//List<Lancamento> listaFiltroLancamentoNative(
+//      @Param("descricao") String descricao,
+//      @Param("tipoLancamento") Long tipoLancamento,
+//      @Param("dataLancamentoInicio") String dataLancamentoInicio,
+//      @Param("dataLancamentoFinal") String dataLancamentoFinal,
+//      @Param("tipoTransacao") String tipoTransacao);
 }

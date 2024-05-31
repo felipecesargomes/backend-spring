@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.cappacitar.DTO.LancamentoDTO;
 import br.com.cappacitar.entity.Lancamento;
 import br.com.cappacitar.entity.TipoLancamento;
+import br.com.cappacitar.entity.TipoTransacao;
 import br.com.cappacitar.repository.LancamentoRepository;
+import br.com.cappacitar.util.Utils;
 
 @Service
 public class LancamentoService extends BaseService<Lancamento, LancamentoDTO> {
@@ -22,8 +24,8 @@ public class LancamentoService extends BaseService<Lancamento, LancamentoDTO> {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Lancamento> listaFiltroLancamento(String descricao, TipoLancamento tipoLancamento,
-			String dataLancamentoInicio, String dataLancamentoFinal) {
+	public List<Lancamento> listaFiltroLancamentoNative(String descricao, Long tipoLancamento,
+			String dataLancamentoInicio, String dataLancamentoFinal, String tipoTransacao) {
 
 		dataLancamentoInicio = dataLancamentoInicio != null ? "'" + dataLancamentoInicio + "'" : null;
 		dataLancamentoFinal = dataLancamentoFinal != null ? "'" + dataLancamentoFinal + "'" : null;
@@ -39,10 +41,12 @@ public class LancamentoService extends BaseService<Lancamento, LancamentoDTO> {
 		// LocalDate.parse(dataPagamentoFinal) : null;
 		List<Lancamento> list = new ArrayList<Lancamento>();
 		try {
-
 			list = lancamentoRepository.listaFiltroLancamentoNative(
 					descricao.isEmpty() ? null : descricao.toUpperCase(),
-					tipoLancamento != null ? tipoLancamento.getId() : null, dataLancamentoInicio, dataLancamentoFinal);
+					tipoLancamento != null ? tipoLancamento : null,
+					dataLancamentoInicio,
+					dataLancamentoFinal,
+					tipoTransacao != null ? tipoTransacao.toUpperCase() : null);
 			for (Lancamento lancamento : list) {
 				System.out.println(lancamento.getDataLancamento());
 			}
