@@ -15,7 +15,7 @@ local.properties
 .recommenders
 
 # Maven specific ignores
-target/
+target/**
 
 # External tool builders
 .externalToolBuilders/
